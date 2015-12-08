@@ -11,7 +11,7 @@ root.resizable(0, 0)
 frame = Frame(root, bd=5, relief=SUNKEN)
 frame.pack()
 
-W, H = 1000, 400
+W, H = 1900, 800
 canvas = Canvas(frame, width=W, height=H, bd=0, highlightthickness=0)
 canvas.pack()
 
@@ -28,8 +28,8 @@ root.update() # fix geometry
 try:
     while 1:
         t1 = time.time()
-        for i in range(len(items)):
-            items[i].move()
+        for agent in items:
+            agent.move()
         root.update_idletasks() # redraw
         root.update() # process events
         t2 = time.time()
