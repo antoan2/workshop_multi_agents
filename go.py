@@ -11,15 +11,19 @@ root.resizable(0, 0)
 frame = Frame(root, bd=5, relief=SUNKEN)
 frame.pack()
 
-W, H = 1900, 800
+W, H = 1000, 600
 canvas = Canvas(frame, width=W, height=H, bd=0, highlightthickness=0)
 canvas.pack()
 
 items = []
+normeSpeed = 100
 for i in range(1000):
     items.append(agent(canvas,
-                        Vec2d(random.random()*W, random.random()*H),
-                        Vec2d(random.random()-0.5, random.random()-0.5)))
+                        Vec2d(W*random.random(), 0.5*H*random.random() + 0.2*H),
+                        Vec2d(normeSpeed*(2*random.random()-1), normeSpeed*(2*random.random() - 1))))
+    #items.append(agent(canvas,
+                        #Vec2d(520, 300),
+                        #Vec2d(0, 0)))
 
 root.update() # fix geometry
 

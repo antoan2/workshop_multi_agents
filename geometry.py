@@ -7,13 +7,15 @@ class Vec2d(object):
         self.y = float(y)
 
     def __str__(self):
-        return "pos : (%.2f, %.2f)" % (self.x, self.y)
+        return "(x, y) : (%.2f, %.2f)" % (self.x, self.y)
 
     def toString(self):
         return "pos : (%.2f, %.2f)" % (self.x, self.y)
 
     def __add__(self, v):
         return Vec2d(self.x+v.x, self.y+v.y)
+    def __sub__(self, v):
+        return Vec2d(self.x-v.x, self.y-v.y)
     def __iadd__(self, v):
         return Vec2d(self.x+v.x, self.y+v.y)
 
