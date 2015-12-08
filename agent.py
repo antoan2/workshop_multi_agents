@@ -10,17 +10,11 @@ class agent(object):
         self.speed = speed
         self.pos = pos
         self.dt = 0.02
+        self.size = 4
 
         self.canvas = canvas
-        self.id = self.canvas.create_oval(self.getBox(2),
-                                outline='red',
-                                fill='blue')
-        #self.r_eye_id = self.canvas.create_oval(self.getBox(2, (-2, -4)),
-                                #outline='red',
-                                #fill='blue')
-        #self.l_eye_id = self.canvas.create_oval(self.getBox(2, (2, -4)),
-                                #outline='red',
-                                #fill='blue')
+        self.id = self.canvas.create_oval(self.getBox(self.size),
+                                fill='brown')
 
         self.W = self.canvas.winfo_reqwidth()
         self.H = self.canvas.winfo_reqheight()
@@ -28,21 +22,20 @@ class agent(object):
 
     def move(self):
 
-        #r = self.pos - self.center
-        #toCenter = Vec2d(r.x, r.y)
-        #toCenter.normalize()
-        #self.a = toCenter.multiply(-1e4 / (1e-1 + r.norm()**2))
-        self.speed.add(self.a.multiply(self.dt))
         self.pos.add(self.speed.multiply(self.dt))
-        if self.pos.y > self.H:
-            self.speed = Vec2d(self.speed.x, -self.speed.y)
-            self.pos.y = self.H
+        self.speed.add(self.a.multiply(self.dt))
+        r = self.pos - self.center
+        toCenter = Vec2d(r.x, r.y)
+        toCenter.normalize()
+        if self.id == 1:
+            print -1e6 / (1e-1 + r.norm()**2)
+        self.a = toCenter.multiply(max(-400, -1e6 / (1e-1 + r.norm()**2)))
 
-        self.pos.modulo((self.W, 10000))
+        #self.pos.modulo((self.W, 10000))
         self.draw()
     
     def draw(self):
-        self.canvas.coords(self.id, self.getBox(2))
+        self.canvas.coords(self.id, self.getBox(self.size))
         #self.canvas.coords(self.r_eye_id, self.getBox(2, (-2, 4)))
         #self.canvas.coords(self.l_eye_id, self.getBox(2, (2, 4)))
 
